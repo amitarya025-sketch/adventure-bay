@@ -139,6 +139,14 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
 .nneed { color: #b3261e; font-weight: 800; }
 .chipbtn:disabled { opacity: .45; cursor: not-allowed; }
 
+.diyas { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 560px; }
+.diya { position: relative; width: clamp(64px, 20vw, 90px); height: clamp(72px, 22vw, 100px); border: 0; border-radius: 22px; background: #fff; cursor: pointer; display: grid; place-items: end center; padding-bottom: 6px; box-shadow: 0 5px 0 rgba(8,48,77,.25); }
+.diya:active { transform: scale(.96); }
+.diya .lamp { font-size: clamp(2.2rem, 9vw, 3.2rem); line-height: 1; }
+.diya .fl { position: absolute; top: 2px; left: 50%; transform: translateX(-50%); font-size: clamp(1.6rem, 6vw, 2.2rem); display: none; animation: bob 1s ease-in-out infinite; }
+.diya.lit { background: #fff1b8; }
+.diya.lit .fl { display: block; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
@@ -172,6 +180,13 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
       g_animals: 'Animal Sounds', s_animals: 'Who says that?',
       g_bubbles: 'Bubble Pop', s_bubbles: 'Pop 1, 2, 3 in order',
       g_sea: 'Sea Quiz', s_sea: 'Sea or land?',
+      g_fest: 'Festival Fun', s_fest: 'Diwali, Holi and more',
+      g_india: 'India Quiz', s_india: 'Our national symbols',
+      g_kitchen: 'Desi Kitchen', s_kitchen: 'Roti, rice and mango',
+      g_ride: 'Ride Time', s_ride: 'Auto, train and bus',
+      g_hnum: 'Hindi Numbers', s_hnum: 'Ek, do, teen…',
+      g_diya: 'Diya Lights', s_diya: 'Light the right number',
+      diyaQ: function (n) { return 'Light ' + n + ' diyas!'; },
       shapeQ: function (n) { return 'Find the ' + n + '!'; },
       colorQ: function (c) { return 'Tap the ' + c + ' one!'; },
       addQ: 'How many in all?', moreQ: 'Which side has MORE?', lessQ: 'Which side has FEWER?',
@@ -190,7 +205,7 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
       oops: 'Almost! Try another one.',
       endTitle: 'Splash-tastic!',
       endLine: function (n) { return 'You won ' + n + ' of 5 stars on your first try.'; },
-      total: 'Stars collected: ', again: 'Play again',
+      total: 'Stars collected: ', again: 'Play again', next: 'Next →',
       qAria: function (a, b) { return 'Question ' + a + ' of ' + b; },
       emo: { happy: 'Happy', sad: 'Sad', angry: 'Angry', scared: 'Scared', surprised: 'Surprised' }
     },
@@ -210,6 +225,13 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
       g_animals: 'जानवर की आवाज़', s_animals: 'कौन बोल रहा है?',
       g_bubbles: 'बुलबुले फोड़ो', s_bubbles: '१, २, ३ क्रम से फोड़ो',
       g_sea: 'समुद्र की पहेली', s_sea: 'समुद्र या ज़मीन?',
+      g_fest: 'त्योहार की मस्ती', s_fest: 'दिवाली, होली और बहुत कुछ',
+      g_india: 'भारत की पहेली', s_india: 'हमारे राष्ट्रीय प्रतीक',
+      g_kitchen: 'देसी रसोई', s_kitchen: 'रोटी, चावल और आम',
+      g_ride: 'सवारी का मज़ा', s_ride: 'ऑटो, रेल और बस',
+      g_hnum: 'हिंदी गिनती', s_hnum: 'एक, दो, तीन…',
+      g_diya: 'दीये जलाओ', s_diya: 'सही गिनती के दीये जलाओ',
+      diyaQ: function (n) { return fmt(n) + ' दीये जलाओ!'; },
       shapeQ: function (n) { return n + ' कहाँ है? ढूँढो!'; },
       colorQ: function (c) { return c + ' रंग वाला छुओ!'; },
       addQ: 'कुल कितने हैं?', moreQ: 'किस तरफ़ ज़्यादा हैं?', lessQ: 'किस तरफ़ कम हैं?',
@@ -228,7 +250,7 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
       oops: 'लगभग! एक और कोशिश करो।',
       endTitle: 'शाबाश!',
       endLine: function (n) { return 'पहली कोशिश में तुमने ५ में से ' + n + ' तारे जीते।'; },
-      total: 'जमा किए तारे: ', again: 'फिर से खेलो',
+      total: 'जमा किए तारे: ', again: 'फिर से खेलो', next: 'अगला →',
       qAria: function (a, b) { return 'सवाल ' + a + ', कुल ' + b; },
       emo: { happy: 'खुश', sad: 'उदास', angry: 'गुस्सा', scared: 'डरा हुआ', surprised: 'हैरान' }
     }
@@ -265,6 +287,47 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
     { e: '🧱', f: false, en: 'Brick', hi: 'ईंट' }, { e: '🔔', f: false, en: 'Bell', hi: 'घंटी' }
   ];
   var SEA = ['🐠', '🦀', '🐙', '🐚', '⭐', '🐢', '🐬', '🐡'];
+  var FEST = [
+    { e: '🪔', qen: 'What do we light on Diwali?', qhi: 'दिवाली पर हम क्या जलाते हैं?' },
+    { e: '🎨', qen: 'What do we play with on Holi?', qhi: 'होली पर हम किससे खेलते हैं?' },
+    { e: '🪁', qen: 'What do we fly on Makar Sankranti?', qhi: 'मकर संक्रांति पर हम क्या उड़ाते हैं?' },
+    { e: '🧵', qen: 'What does a sister tie on Raksha Bandhan?', qhi: 'रक्षाबंधन पर बहन क्या बाँधती है?' },
+    { e: '🌙', qen: 'What do we look for in the sky for Eid?', qhi: 'ईद के लिए हम आसमान में क्या देखते हैं?' },
+    { e: '🎄', qen: 'What do we decorate on Christmas?', qhi: 'क्रिसमस पर हम क्या सजाते हैं?' }
+  ];
+  var IQ = [
+    { e: '🐅', pool: ['🐘', '🐒', '🐄', '🦁', '🐴'], qen: 'Which is India’s national animal?', qhi: 'भारत का राष्ट्रीय पशु कौन सा है?' },
+    { e: '🦚', pool: ['🦜', '🦆', '🐓', '🦉'], qen: 'Which is India’s national bird?', qhi: 'भारत का राष्ट्रीय पक्षी कौन सा है?' },
+    { e: '🪷', pool: ['🌹', '🌻', '🌷', '🌼'], qen: 'Which is India’s national flower?', qhi: 'भारत का राष्ट्रीय फूल कौन सा है?' },
+    { e: '🥭', pool: ['🍎', '🍌', '🍇', '🍉'], qen: 'Which is India’s national fruit?', qhi: 'भारत का राष्ट्रीय फल कौन सा है?' },
+    { e: '🐪', pool: ['🐘', '🐄', '🐴', '🐑'], qen: 'Who carries people across the Rajasthan desert?', qhi: 'राजस्थान के रेगिस्तान में सवारी कौन कराता है?' }
+  ];
+  var KITCHEN = [
+    { e: '🥭', en: 'Mango', hi: 'आम' }, { e: '🍌', en: 'Banana', hi: 'केला' }, { e: '🍚', en: 'Rice', hi: 'चावल' },
+    { e: '🫓', en: 'Roti', hi: 'रोटी' }, { e: '🥛', en: 'Milk', hi: 'दूध' }, { e: '🍬', en: 'Sweet', hi: 'मिठाई' },
+    { e: '🥕', en: 'Carrot', hi: 'गाजर' }, { e: '🍅', en: 'Tomato', hi: 'टमाटर' }, { e: '🧅', en: 'Onion', hi: 'प्याज़' }
+  ];
+  var RIDE = [
+    { e: '🛺', en: 'Auto-rickshaw', hi: 'ऑटो' }, { e: '🚂', en: 'Train', hi: 'रेल' }, { e: '🚌', en: 'Bus', hi: 'बस' },
+    { e: '🚲', en: 'Cycle', hi: 'साइकिल' }, { e: '🚜', en: 'Tractor', hi: 'ट्रैक्टर' }, { e: '🛶', en: 'Boat', hi: 'नाव' },
+    { e: '✈️', en: 'Aeroplane', hi: 'हवाई जहाज़' }
+  ];
+  var HNUM = [
+    { n: 1, hi: 'एक', tr: 'ek' }, { n: 2, hi: 'दो', tr: 'do' }, { n: 3, hi: 'तीन', tr: 'teen' }, { n: 4, hi: 'चार', tr: 'chaar' },
+    { n: 5, hi: 'पाँच', tr: 'paanch' }, { n: 6, hi: 'छह', tr: 'chhah' }, { n: 7, hi: 'सात', tr: 'saat' }, { n: 8, hi: 'आठ', tr: 'aath' },
+    { n: 9, hi: 'नौ', tr: 'nau' }, { n: 10, hi: 'दस', tr: 'das' }
+  ];
+  function nameGame(id, icon, tone, items) {
+    return {
+      id: id, icon: icon, tone: tone,
+      deck: function () { return shuffle(items).slice(0, 5); },
+      make: function (i, deck) {
+        var it = deck[i], others = shuffle(items.filter(function (x) { return x !== it; })).slice(0, 2), q = t('shapeQ')(it[save.lang]);
+        return { prompt: q, say: q, stage: '',
+          options: shuffle([it].concat(others)).map(function (x) { return { k: id + x.en, html: x.e, aria: x[save.lang], ok: x === it }; }) };
+      }
+    };
+  }
   var SEAL = ['🐠', '🐙', '🦀', '🐬', '🐳', '🦈', '🐡', '🦑'];
   var LAND = ['🐘', '🦁', '🐄', '🐒', '🐴', '🐇', '🦒', '🐑'];
   var SHAPES = [
@@ -526,10 +589,51 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
           options: shuffle([ans].concat(shuffle(other).slice(0, 2))).map(function (e) { return { k: 'e' + e, html: e, aria: e, ok: e === ans }; }) };
       }
     }
+  ,
+    {
+      id: 'fest', icon: '🪔', tone: '#ffcf70',
+      deck: function () { return shuffle(FEST).slice(0, 5); },
+      make: function (i, deck) {
+        var it = deck[i], others = shuffle(FEST.filter(function (x) { return x !== it; })).slice(0, 2), q = it['q' + save.lang];
+        return { prompt: q, say: q, stage: '',
+          options: shuffle([it].concat(others)).map(function (x) { return { k: 'f' + x.e, html: x.e, aria: x.e, ok: x === it }; }) };
+      }
+    },
+    {
+      id: 'india', icon: '🇮🇳', tone: '#ffb27a',
+      deck: function () { return shuffle(IQ); },
+      make: function (i, deck) {
+        var it = deck[i], q = it['q' + save.lang];
+        return { prompt: q, say: q, stage: '',
+          options: shuffle([it.e].concat(shuffle(it.pool).slice(0, 2))).map(function (e) { return { k: 'i' + e, html: e, aria: e, ok: e === it.e }; }) };
+      }
+    },
+    nameGame('kitchen', '🥭', '#ffe27a', KITCHEN),
+    nameGame('ride', '🛺', '#9fe3a5', RIDE),
+    {
+      id: 'hnum', icon: '🔢', tone: '#ffa8b8',
+      deck: function () { return shuffle(HNUM).slice(0, 5); },
+      make: function (i, deck) {
+        var it = deck[i], set = [it.n], g = 0;
+        while (set.length < 3 && g++ < 80) { var c = 1 + rnd(10); if (set.indexOf(c) < 0) set.push(c); }
+        var q = save.lang === 'hi' ? 'कौन सा अंक “' + it.hi + '” है?' : 'Which number is “' + it.tr + '”?';
+        return { prompt: q, say: q,
+          stage: '<div class="say">' + it.hi + '</div>' + (save.lang === 'en' ? '<div class="word">' + it.tr + '</div>' : ''),
+          options: shuffle(set).map(function (x) { return { k: 'h' + x, html: fmt(x), aria: String(x), ok: x === it.n }; }) };
+      }
+    },
+    {
+      id: 'diya', icon: '🪔', tone: '#ffd9a0',
+      make: function (i) {
+        var n = [2, 3, 4, 5, 6][i], total = n + 2, q = t('diyaQ')(n), html = '', k;
+        for (k = 0; k < total; k++) html += '<button type="button" class="diya" data-act="diya" aria-label="diya ' + (k + 1) + '"><span class="fl">🔥</span><span class="lamp">🪔</span></button>';
+        return { prompt: q, say: q, stage: '<div class="diyas">' + html + '</div>', options: [], diya: { n: n, lit: 0 } };
+      }
+    }
   ];
 
   /* ---------- state and views ---------- */
-  var S = { screen: 'splash', game: null, round: 0, earned: 0, deck: null, q: null, first: true, locked: false, timer: null, mem: null, bub: null, mt: null, st: null };
+  var S = { screen: 'splash', game: null, round: 0, earned: 0, deck: null, q: null, first: true, locked: false, timer: null, mem: null, bub: null, diya: null, mt: null, st: null };
   var app = document.getElementById('app');
 
   function header() {
@@ -572,6 +676,7 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
       '<div class="stars-row" aria-hidden="true">' + row + '</div>' +
       '<p>' + t('endLine')(fmt(S.earned)) + '</p><p><strong>' + t('total') + fmt(save.stars) + ' ⭐</strong></p>' +
       '<div class="btns"><button type="button" class="chipbtn" data-act="again">' + t('again') + '</button>' +
+      '<button type="button" class="chipbtn" data-act="next">' + t('next') + '</button>' +
       '<button type="button" class="chipbtn alt" data-act="home">← ' + t('home') + '</button></div></div></section>';
   }
 
@@ -594,7 +699,7 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
   function clearTimer() { if (S.timer) { clearTimeout(S.timer); S.timer = null; } clearTimeout(S.mt); clearTimeout(S.st); }
   function nextQuestion() {
     var q = S.game.make(S.round, S.deck);
-    S.q = q; S.mem = q.mem || null; S.bub = q.bub || null; S.first = true; S.locked = false; render();
+    S.q = q; S.mem = q.mem || null; S.bub = q.bub || null; S.diya = q.diya || null; S.first = true; S.locked = false; render();
     S.st = setTimeout(function () { if (S.screen === 'game' && S.q === q) speak((S.round % 2 === 0 ? save.name.trim() + ', ' : '') + q.say); }, 350);
   }
   function startGame(id) {
@@ -603,7 +708,7 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
     S.round = 0; S.earned = 0; S.deck = S.game.deck ? S.game.deck() : null; S.screen = 'game';
     nextQuestion();
   }
-  function goHome() { clearTimer(); try { window.speechSynthesis.cancel(); } catch (e) {} S.mem = null; S.bub = null; S.screen = 'home'; render(); }
+  function goHome() { clearTimer(); try { window.speechSynthesis.cancel(); } catch (e) {} S.mem = null; S.bub = null; S.diya = null; S.screen = 'home'; render(); }
 
   function roundWon(delay) {
     var fb = document.getElementById('fb'), w = praise();
@@ -654,6 +759,14 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
     }
   }
 
+  function lightDiya(btn) {
+    var d = S.diya;
+    if (!d || S.locked) return;
+    if (btn.classList.contains('lit')) { btn.classList.remove('lit'); d.lit--; tone(330, 0, .15, .1); return; }
+    btn.classList.add('lit'); d.lit++; tone(500 + d.lit * 90, 0, .3, .15);
+    if (d.lit === d.n) roundWon(1700);
+  }
+
   function answer(btn) {
     if (S.locked) return;
     var k = btn.getAttribute('data-k'), o = S.q.options.filter(function (x) { return x.k === k; })[0];
@@ -682,11 +795,13 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
     } else if (act === 'sound') { save.sound = !save.sound; persist(); if (save.sound) { musicStart(); } else { musicStop(); try { window.speechSynthesis.cancel(); } catch (e) {} } render(); }
     else if (act === 'start') startGame(el.getAttribute('data-id'));
     else if (act === 'again') startGame(S.game.id);
+    else if (act === 'next') startGame(GAMES[(GAMES.indexOf(S.game) + 1) % GAMES.length].id);
     else if (act === 'home') goHome();
     else if (act === 'speak') speak(S.q ? S.q.say : '', true);
     else if (act === 'answer') answer(el);
     else if (act === 'card') flip(el);
     else if (act === 'bub') pop(el);
+    else if (act === 'diya') lightDiya(el);
     else if (act === 'begin') {
       var nm = save.name.trim();
       if (!nm) { var nn = document.getElementById('nneed'), ni = document.getElementById('nm'); if (nn) nn.hidden = false; if (ni) ni.focus(); return; }
