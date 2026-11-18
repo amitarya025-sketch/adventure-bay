@@ -186,6 +186,21 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
       g_ride: 'Ride Time', s_ride: 'Auto, train and bus',
       g_hnum: 'Hindi Numbers', s_hnum: 'Ek, do, teen…',
       g_diya: 'Diya Lights', s_diya: 'Light the right number',
+      g_body: 'Body Parts', s_body: 'Eyes, nose and hands',
+      g_birds: 'Bird Park', s_birds: 'Peacock, parrot, owl',
+      g_weather: 'Weather Watch', s_weather: 'Sun, rain and rainbow',
+      g_clothes: 'Dress Up', s_clothes: 'Shirt, saree and shoes',
+      g_days: 'Days of the Week', s_days: 'What comes next?',
+      g_opp: 'Opposites', s_opp: 'Big and small, hot and cold',
+      g_size: 'Big and Small', s_size: 'Find the biggest',
+      g_sub: 'Take Away', s_sub: 'Subtracting is easy',
+      g_hletters: 'Hindi Letters', s_hletters: 'Ka, kha, ga…',
+      g_abc: 'ABC Pictures', s_abc: 'A is for Apple',
+      g_music: 'Music Time', s_music: 'Drum, piano and more',
+      dayQ: function (d) { return 'Which day comes after ' + d + '?'; },
+      oppQ: function (w) { return 'What is the opposite of ' + w + '?'; },
+      bigQ: 'Tap the BIGGEST one!', smallQ: 'Tap the SMALLEST one!', subQ: 'How many are left?',
+      picQ: function (l) { return 'Which picture starts with “' + l + '”?'; },
       diyaQ: function (n) { return 'Light ' + n + ' diyas!'; },
       shapeQ: function (n) { return 'Find the ' + n + '!'; },
       colorQ: function (c) { return 'Tap the ' + c + ' one!'; },
@@ -231,6 +246,21 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
       g_ride: 'सवारी का मज़ा', s_ride: 'ऑटो, रेल और बस',
       g_hnum: 'हिंदी गिनती', s_hnum: 'एक, दो, तीन…',
       g_diya: 'दीये जलाओ', s_diya: 'सही गिनती के दीये जलाओ',
+      g_body: 'शरीर के अंग', s_body: 'आँख, नाक और हाथ',
+      g_birds: 'पक्षी उद्यान', s_birds: 'मोर, तोता, उल्लू',
+      g_weather: 'मौसम की सैर', s_weather: 'सूरज, बारिश, इंद्रधनुष',
+      g_clothes: 'कपड़े पहनो', s_clothes: 'कमीज़, साड़ी और जूते',
+      g_days: 'सप्ताह के दिन', s_days: 'आगे कौन सा दिन?',
+      g_opp: 'उल्टे शब्द', s_opp: 'बड़ा-छोटा, गरम-ठंडा',
+      g_size: 'बड़ा और छोटा', s_size: 'सबसे बड़ा ढूँढो',
+      g_sub: 'घटाने का खेल', s_sub: 'घटाना आसान है',
+      g_hletters: 'हिंदी वर्णमाला', s_hletters: 'क, ख, ग…',
+      g_abc: 'ए बी सी तस्वीरें', s_abc: 'A से Apple',
+      g_music: 'संगीत का समय', s_music: 'ढोल, पियानो और बहुत कुछ',
+      dayQ: function (d) { return 'कौन सा दिन ' + d + ' के बाद आता है?'; },
+      oppQ: function (w) { return w + ' का उल्टा कौन सा है?'; },
+      bigQ: 'सबसे बड़ा छुओ!', smallQ: 'सबसे छोटा छुओ!', subQ: 'कितने बचे?',
+      picQ: function (l) { return 'कौन सी तस्वीर “' + l + '” से शुरू होती है?'; },
       diyaQ: function (n) { return fmt(n) + ' दीये जलाओ!'; },
       shapeQ: function (n) { return n + ' कहाँ है? ढूँढो!'; },
       colorQ: function (c) { return c + ' रंग वाला छुओ!'; },
@@ -316,6 +346,42 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
     { n: 1, hi: 'एक', tr: 'ek' }, { n: 2, hi: 'दो', tr: 'do' }, { n: 3, hi: 'तीन', tr: 'teen' }, { n: 4, hi: 'चार', tr: 'chaar' },
     { n: 5, hi: 'पाँच', tr: 'paanch' }, { n: 6, hi: 'छह', tr: 'chhah' }, { n: 7, hi: 'सात', tr: 'saat' }, { n: 8, hi: 'आठ', tr: 'aath' },
     { n: 9, hi: 'नौ', tr: 'nau' }, { n: 10, hi: 'दस', tr: 'das' }
+  ];
+  var BODY = [
+    { e: '👁️', en: 'Eye', hi: 'आँख' }, { e: '👂', en: 'Ear', hi: 'कान' }, { e: '👃', en: 'Nose', hi: 'नाक' }, { e: '👄', en: 'Mouth', hi: 'मुँह' },
+    { e: '✋', en: 'Hand', hi: 'हाथ' }, { e: '🦶', en: 'Foot', hi: 'पैर' }, { e: '🦷', en: 'Tooth', hi: 'दाँत' }
+  ];
+  var BIRDS = [
+    { e: '🦚', en: 'Peacock', hi: 'मोर' }, { e: '🦜', en: 'Parrot', hi: 'तोता' }, { e: '🦉', en: 'Owl', hi: 'उल्लू' }, { e: '🐓', en: 'Rooster', hi: 'मुर्गा' },
+    { e: '🦆', en: 'Duck', hi: 'बत्तख़' }, { e: '🕊️', en: 'Dove', hi: 'कबूतर' }, { e: '🐦', en: 'Sparrow', hi: 'चिड़िया' }
+  ];
+  var WEATHER = [
+    { e: '☀️', en: 'Sun', hi: 'सूरज' }, { e: '🌧️', en: 'Rain', hi: 'बारिश' }, { e: '☁️', en: 'Cloud', hi: 'बादल' }, { e: '❄️', en: 'Snow', hi: 'बर्फ़' },
+    { e: '🌈', en: 'Rainbow', hi: 'इंद्रधनुष' }, { e: '⚡', en: 'Lightning', hi: 'बिजली' }, { e: '🌙', en: 'Moon', hi: 'चाँद' }
+  ];
+  var CLOTHES = [
+    { e: '👕', en: 'Shirt', hi: 'कमीज़' }, { e: '👖', en: 'Pants', hi: 'पैंट' }, { e: '👗', en: 'Frock', hi: 'फ्रॉक' }, { e: '👟', en: 'Shoes', hi: 'जूते' },
+    { e: '🧢', en: 'Cap', hi: 'टोपी' }, { e: '🧣', en: 'Scarf', hi: 'मफ़लर' }, { e: '🥻', en: 'Saree', hi: 'साड़ी' }
+  ];
+  var MUSIC = [
+    { e: '🥁', en: 'Drum', hi: 'ढोल' }, { e: '🎺', en: 'Trumpet', hi: 'तुरही' }, { e: '🎻', en: 'Violin', hi: 'वायलिन' },
+    { e: '🎹', en: 'Piano', hi: 'पियानो' }, { e: '🎸', en: 'Guitar', hi: 'गिटार' }, { e: '🪘', en: 'Dholak', hi: 'ढोलक' }
+  ];
+  var DAYS = [
+    { en: 'Monday', hi: 'सोमवार' }, { en: 'Tuesday', hi: 'मंगलवार' }, { en: 'Wednesday', hi: 'बुधवार' }, { en: 'Thursday', hi: 'गुरुवार' },
+    { en: 'Friday', hi: 'शुक्रवार' }, { en: 'Saturday', hi: 'शनिवार' }, { en: 'Sunday', hi: 'रविवार' }
+  ];
+  var OPP = [
+    { a: { e: '🐘', en: 'big', hi: 'बड़ा' }, b: { e: '🐜', en: 'small', hi: 'छोटा' } },
+    { a: { e: '🔥', en: 'hot', hi: 'गरम' }, b: { e: '🧊', en: 'cold', hi: 'ठंडा' } },
+    { a: { e: '☀️', en: 'day', hi: 'दिन' }, b: { e: '🌙', en: 'night', hi: 'रात' } },
+    { a: { e: '🐇', en: 'fast', hi: 'तेज़' }, b: { e: '🐢', en: 'slow', hi: 'धीमा' } },
+    { a: { e: '😊', en: 'happy', hi: 'खुश' }, b: { e: '😢', en: 'sad', hi: 'उदास' } },
+    { a: { e: '⬆️', en: 'up', hi: 'ऊपर' }, b: { e: '⬇️', en: 'down', hi: 'नीचे' } }
+  ];
+  var HLET = [
+    { l: 'अ', e: '🍇' }, { l: 'आ', e: '🥭' }, { l: 'क', e: '🪷' }, { l: 'ख', e: '🐇' }, { l: 'ग', e: '🐄' },
+    { l: 'घ', e: '🏠' }, { l: 'च', e: '🌙' }, { l: 'म', e: '🐟' }, { l: 'ह', e: '🐘' }, { l: 'त', e: '🦜' }
   ];
   function nameGame(id, icon, tone, items) {
     return {
@@ -630,6 +696,73 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
         return { prompt: q, say: q, stage: '<div class="diyas">' + html + '</div>', options: [], diya: { n: n, lit: 0 } };
       }
     }
+  ,
+    nameGame('body', '👁️', '#ffc9a6', BODY),
+    nameGame('birds', '🦚', '#9ee6d0', BIRDS),
+    nameGame('weather', '🌈', '#a9d7ff', WEATHER),
+    nameGame('clothes', '👕', '#d9c2ff', CLOTHES),
+    {
+      id: 'days', icon: '📅', tone: '#ffe08a',
+      deck: function () { return shuffle([0, 1, 2, 3, 4, 5, 6]).slice(0, 5); },
+      make: function (i, deck) {
+        var d = deck[i], ans = DAYS[(d + 1) % 7], L = save.lang;
+        var others = shuffle(DAYS.filter(function (x) { return x !== ans && x !== DAYS[d]; })).slice(0, 2), q = t('dayQ')(DAYS[d][L]);
+        return { prompt: q, say: q, stage: '',
+          options: shuffle([ans].concat(others)).map(function (x) { return { k: 'd' + x.en, html: '<span class="lb">' + x[L] + '</span>', aria: x[L], ok: x === ans }; }) };
+      }
+    },
+    {
+      id: 'opp', icon: '↔️', tone: '#ffb8c6',
+      deck: function () { return shuffle(OPP).slice(0, 5); },
+      make: function (i, deck) {
+        var p = deck[i], flip = rnd(2) === 1, src = flip ? p.b : p.a, ans = flip ? p.a : p.b, L = save.lang;
+        var pool = [];
+        OPP.forEach(function (o) { if (o !== p) { pool.push(o.a.e); pool.push(o.b.e); } });
+        var opts = shuffle([ans.e].concat(shuffle(pool).slice(0, 2))), q = t('oppQ')(src[L]);
+        return { prompt: q, say: q, stage: '<div class="pic">' + src.e + '</div><div class="word">' + src[L] + '</div>',
+          options: opts.map(function (e) { return { k: 'o' + e, html: e, aria: e, ok: e === ans.e }; }) };
+      }
+    },
+    {
+      id: 'size', icon: '🔍', tone: '#c4f0a0',
+      make: function (i) {
+        var em = pick(['🐠', '🍎', '⭐', '🐘', '🌸', '🐢']), sizes = shuffle([2.2, 3.6, 5.2]), big = i % 2 === 0, target = big ? 5.2 : 2.2, q = t(big ? 'bigQ' : 'smallQ');
+        return { prompt: q, say: q, stage: '',
+          options: sizes.map(function (z) { return { k: 'z' + z, html: '<span style="font-size:' + z + 'rem;line-height:1">' + em + '</span>', aria: em, ok: z === target }; }) };
+      }
+    },
+    {
+      id: 'sub', icon: '➖', tone: '#ffd0d0',
+      make: function (i) {
+        var max = [4, 5, 6, 8, 10][i], a = 2 + rnd(max - 1), b = 1 + rnd(a - 1), ans = a - b, sym = pick(['🐠', '🦀', '🐚', '⭐', '🐙']);
+        var set = [ans], g = 0;
+        while (set.length < 3 && g++ < 80) { var c = Math.max(1, ans + rnd(5) - 2); if (c <= 10 && set.indexOf(c) < 0) set.push(c); }
+        var rep = function (n) { return new Array(n + 1).join('<span>' + sym + '</span>'); };
+        var say = (save.lang === 'hi' ? a + ' घटा ' + b + '. ' : a + ' minus ' + b + '. ') + t('subQ');
+        return { prompt: t('subQ'), say: say,
+          stage: '<div class="count-grid">' + rep(a) + '<span>➖</span>' + rep(b) + '</div>',
+          options: shuffle(set).map(function (x) { return { k: 'n' + x, html: fmt(x), aria: String(x), ok: x === ans }; }) };
+      }
+    },
+    {
+      id: 'hletters', icon: 'क', tone: '#ffcba4',
+      deck: function () { return shuffle(HLET).slice(0, 5); },
+      make: function (i, deck) {
+        var it = deck[i], others = shuffle(HLET.filter(function (x) { return x !== it; })).slice(0, 2), q = t('picQ')(it.l);
+        return { prompt: q, say: q, stage: '<div class="say">' + it.l + '</div>',
+          options: shuffle([it].concat(others)).map(function (x) { return { k: 'h' + x.l, html: x.e, aria: x.e, ok: x === it }; }) };
+      }
+    },
+    {
+      id: 'abc', icon: '🔤', tone: '#b7e4ff',
+      deck: function () { return shuffle(LETTERS.en).slice(0, 5); },
+      make: function (i, deck) {
+        var it = deck[i], others = shuffle(LETTERS.en.filter(function (x) { return x.l !== it.l; })).slice(0, 2), q = t('picQ')(it.l);
+        return { prompt: q, say: q, stage: '<div class="say">' + it.l + ' ' + it.l.toLowerCase() + '</div>',
+          options: shuffle([it].concat(others)).map(function (x) { return { k: 'p' + x.l, html: x.e, aria: x.w, ok: x === it }; }) };
+      }
+    },
+    nameGame('music', '🥁', '#ffb3b3', MUSIC)
   ];
 
   /* ---------- state and views ---------- */
