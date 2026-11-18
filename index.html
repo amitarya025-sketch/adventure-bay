@@ -147,16 +147,6 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
 .diya.lit { background: #fff1b8; }
 .diya.lit .fl { display: block; }
 
-.poem { margin-bottom: 18px; padding: 16px 20px; }
-.poem .ph { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-.poem .pt { font-weight: 800; font-size: 1.1rem; }
-.poem .pbtns { display: flex; gap: 8px; }
-.poem .pbtns .chipbtn { background: #e8f8ff; min-width: 48px; justify-content: center; }
-.poem .ptitle { margin: 6px 0 4px; font-size: 1.5rem; font-weight: 800; }
-.poem .plines { margin: 0; display: grid; gap: 2px; }
-.poem .pl { font-size: 1.15rem; font-weight: 600; padding: 3px 10px; border-radius: 12px; transition: background .25s; }
-.poem .pl.on { background: var(--sun); font-weight: 800; }
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
@@ -220,7 +210,7 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
       seaQ: 'Who lives in the sea?', landQ: 'Who lives on land?',
       bubQ: function (n) { return 'Pop the bubbles in order, 1 to ' + n + '!'; },
       play: 'Play', nameQ: 'What is your name?', namePh: 'Type your name', nameNeed: 'Please type your name to start.',
-      helloN: function (n) { return 'Hi ' + n + '! Ready to dive in?'; }, welcome: 'Welcome to Adventure Bay!', soundNote: 'Sound and poems are on. Tap the bell to mute.', poemTime: 'Poem Time',
+      helloN: function (n) { return 'Hi ' + n + '! Ready to dive in?'; }, welcome: 'Welcome to Adventure Bay!', soundNote: 'Sound is on. Tap the bell to mute.',
       countQ: 'Count them! How many are there?',
       letterQ: function (w) { return 'Which letter does ' + w + ' start with?'; },
       floatQ: 'Will it float or sink?', floatBtn: 'Float', sinkBtn: 'Sink',
@@ -280,7 +270,7 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
       seaQ: 'समुद्र में कौन रहता है?', landQ: 'ज़मीन पर कौन रहता है?',
       bubQ: function (n) { return 'बुलबुले क्रम से फोड़ो, १ से ' + fmt(n) + ' तक!'; },
       play: 'खेलो', nameQ: 'तुम्हारा नाम क्या है?', namePh: 'अपना नाम लिखो', nameNeed: 'शुरू करने के लिए अपना नाम लिखो।',
-      helloN: function (n) { return 'नमस्ते ' + n + '! चलो, समुद्र में गोता लगाएँ!'; }, welcome: 'एडवेंचर बे में स्वागत है!', soundNote: 'आवाज़ और कविताएँ चालू हैं। बंद करने के लिए घंटी दबाओ।', poemTime: 'कविता का समय',
+      helloN: function (n) { return 'नमस्ते ' + n + '! चलो, समुद्र में गोता लगाएँ!'; }, welcome: 'एडवेंचर बे में स्वागत है!', soundNote: 'आवाज़ चालू है। बंद करने के लिए घंटी दबाओ।',
       countQ: 'गिनो! कितने हैं?',
       letterQ: function (w) { return w + ' किस अक्षर से शुरू होता है?'; },
       floatQ: 'यह तैरेगा या डूबेगा?', floatBtn: 'तैरेगा', sinkBtn: 'डूबेगा',
@@ -404,24 +394,6 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
       }
     };
   }
-  var POEMS = {
-    en: [
-      { title: 'Little Fish', lines: ['Little fish, little fish, swim with me,', 'Splash, splash, splash in the deep blue sea.', 'Bubbles up and bubbles down,', 'Wave hello to the sandy town.'] },
-      { title: 'Counting Stars', lines: ['One little star shines in the sky,', 'Two little stars go twinkling by,', 'Three little stars begin to sing,', 'Four little stars dance in a ring.'] },
-      { title: 'Happy Crab', lines: ['Crabby crab goes side, side, side,', 'Along the shore he loves to glide.', 'Snip, snap, snip, snap, hello to you,', 'Wave your claws and dance a step or two.'] },
-      { title: 'Pitter Patter', lines: ['Pitter patter, drops of rain,', 'Splash on the leaf and the windowpane.', 'Puddles to jump in, one, two, three,', 'Wet little feet, as happy as can be.'] },
-      { title: 'Mango Day', lines: ['Yellow mango, sweet and round,', 'Ripe and juicy, fresh from the ground.', 'Take a bite, yum, yum, yum,', 'Share it with a friend, and hum, hum, hum.'] },
-      { title: 'Sleepy Moon', lines: ['The moon is up, the waves are low,', 'The sleepy fish swim soft and slow.', 'Close your eyes and dream away,', 'We will play another day.'] }
-    ],
-    hi: [
-      { title: 'नन्ही मछली', lines: ['नन्ही मछली तैर रही,', 'लहरों संग इठला रही।', 'गोल-गोल बुलबुले उड़ाए,', 'सबको हँसकर पास बुलाए।'] },
-      { title: 'तारे', lines: ['आसमान में तारे चमके,', 'चुन्नू-मुन्नू देखें हँसके।', 'एक, दो, तीन, चार, पाँच,', 'नाचे तारे, गाएँ साथ।'] },
-      { title: 'केकड़ा', lines: ['चुन्नू केकड़ा चला किनारे,', 'पंजे हिलाकर सबको पुकारे।', 'टिक-टिक-टिक-टिक ताल बजाए,', 'नाचे-गाए, सबको भाए।'] },
-      { title: 'बारिश', lines: ['टप-टप बूँदें बरस रही हैं,', 'गली-गली में खेल रही हैं।', 'छप-छप करके कूदें हम,', 'बारिश में खूब नाचें हम।'] },
-      { title: 'आम', lines: ['पीला-पीला मीठा आम,', 'सबको प्यारा इसका नाम।', 'खाओ-खाओ मज़ा लो,', 'सबको थोड़ा-थोड़ा दो।'] },
-      { title: 'चंदा', lines: ['रात हुई तो चंदा आया,', 'सपनों की सौगात लाया।', 'आँखें मूँदो, सो जाओ,', 'सुबह फिर से मुस्काओ।'] }
-    ]
-  };
   var SEAL = ['🐠', '🐙', '🦀', '🐬', '🐳', '🦈', '🐡', '🦑'];
   var LAND = ['🐘', '🦁', '🐄', '🐒', '🐴', '🐇', '🦒', '🐑'];
   var SHAPES = [
@@ -487,7 +459,16 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
   function boop() { tone(300, 0, .25, .1); }
   function fanfare() { tone(523, 0, .25, .18); tone(659, .15, .25, .18); tone(784, .3, .25, .18); tone(1047, .45, .6, .18); }
   var MEL = [523, 587, 659, 784, 880, 784, 659, 587, 523, 659, 784, 659, 587, 523, 440, 523], mstep = 0, mtimer = null;
-  function musicStart() { return; }
+  function musicStart() {
+    if (mtimer || !save.sound || !audio()) return;
+    mtimer = setInterval(function () {
+      if (!save.sound || document.hidden) return;
+      var f = MEL[mstep % MEL.length];
+      tone(f, 0, .5, .025, 'triangle');
+      if (mstep % 4 === 0) tone(f / 4, 0, 1.6, .03, 'sine');
+      mstep++;
+    }, 520);
+  }
   function musicStop() { if (mtimer) { clearInterval(mtimer); mtimer = null; } }
   function speak(text, force) {
     if (!save.sound && !force) return;
@@ -800,7 +781,7 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
   }
 
   function homeView() {
-    return '<section><div class="hero"><h1>' + esc(t('helloN')(save.name.trim())) + '</h1><p>' + t('pick') + '</p></div>' + poemCardHtml() + '<div class="tiles">' +
+    return '<section><div class="hero"><h1>' + esc(t('helloN')(save.name.trim())) + '</h1><p>' + t('pick') + '</p></div><div class="tiles">' +
       GAMES.map(function (g) {
         return '<button type="button" class="tile" style="--tone:' + g.tone + '" data-act="start" data-id="' + g.id + '">' +
           '<span class="ticon" aria-hidden="true">' + g.icon + '</span><span class="ttitle">' + t('g_' + g.id) + '</span><span class="tsub">' + t('s_' + g.id) + '</span></button>';
@@ -855,13 +836,12 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
     S.st = setTimeout(function () { if (S.screen === 'game' && S.q === q) speak((S.round % 2 === 0 ? save.name.trim() + ', ' : '') + q.say); }, 350);
   }
   function startGame(id) {
-    pStop();
     clearTimer();
     S.game = GAMES.filter(function (g) { return g.id === id; })[0];
     S.round = 0; S.earned = 0; S.deck = S.game.deck ? S.game.deck() : null; S.screen = 'game';
     nextQuestion();
   }
-  function goHome() { clearTimer(); try { window.speechSynthesis.cancel(); } catch (e) {} S.mem = null; S.bub = null; S.diya = null; S.screen = 'home'; render(); pSoon(); }
+  function goHome() { clearTimer(); try { window.speechSynthesis.cancel(); } catch (e) {} S.mem = null; S.bub = null; S.diya = null; S.screen = 'home'; render(); }
 
   function roundWon(delay) {
     var fb = document.getElementById('fb'), w = praise();
@@ -920,60 +900,6 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
     if (d.lit === d.n) roundWon(1700);
   }
 
-  /* ---------- poems (replace the background music) ---------- */
-  var P = { idx: 0, line: -1, playing: false, paused: false, token: 0, timer: null, fb: null, t0: null };
-  function poemInner() {
-    var list = POEMS[save.lang], poem = list[P.idx % list.length];
-    return '<div class="ph"><span class="pt">🎵 ' + t('poemTime') + '</span><span class="pbtns">' +
-      '<button type="button" class="chipbtn" data-act="ptoggle" aria-label="' + (P.playing ? 'pause' : 'play') + '">' + (P.playing ? '⏸' : '▶') + '</button>' +
-      '<button type="button" class="chipbtn" data-act="pnext" aria-label="next poem">⏭</button></span></div>' +
-      '<h3 class="ptitle">' + esc(poem.title) + '</h3><p class="plines">' +
-      poem.lines.map(function (l, i) { return '<span class="pl' + (P.playing && i === P.line ? ' on' : '') + '">' + esc(l) + '</span>'; }).join('') + '</p>';
-  }
-  function poemCardHtml() { return '<div class="card poem" id="poem">' + poemInner() + '</div>'; }
-  function poemUpdate() { var el = document.getElementById('poem'); if (el) el.innerHTML = poemInner(); }
-  function pStop() {
-    P.playing = false; P.token++; clearTimeout(P.timer); clearTimeout(P.fb); clearTimeout(P.t0);
-    try { window.speechSynthesis.cancel(); } catch (e) {}
-    P.line = -1; poemUpdate();
-  }
-  function pPlayLine(tok, n) {
-    if (tok !== P.token) return;
-    var list = POEMS[save.lang], poem = list[P.idx % list.length];
-    if (n >= poem.lines.length) {
-      P.timer = setTimeout(function () { if (tok !== P.token) return; P.idx = (P.idx + 1) % list.length; pPlayLine(tok, 0); }, 2200);
-      return;
-    }
-    P.line = n; poemUpdate();
-    var text = poem.lines[n], done = false;
-    function next() {
-      if (done || tok !== P.token) return;
-      done = true; clearTimeout(P.fb);
-      P.timer = setTimeout(function () { pPlayLine(tok, n + 1); }, 450);
-    }
-    P.fb = setTimeout(next, text.length * 150 + 3000);
-    try {
-      var u = new SpeechSynthesisUtterance(text);
-      u.lang = save.lang === 'hi' ? 'hi-IN' : 'en-IN'; u.rate = 0.8; u.pitch = 1.15;
-      u.onend = next; u.onerror = next;
-      window.speechSynthesis.speak(u);
-    } catch (e) {}
-  }
-  function pStart() {
-    if (!save.sound || S.screen !== 'home') return;
-    clearTimeout(P.timer); clearTimeout(P.fb);
-    try { window.speechSynthesis.cancel(); } catch (e) {}
-    P.playing = true; P.token++; P.line = -1; poemUpdate();
-    var tok = P.token; setTimeout(function () { pPlayLine(tok, 0); }, 150);
-  }
-  function pSoon(ms) {
-    clearTimeout(P.t0);
-    P.t0 = setTimeout(function () { if (S.screen === 'home' && save.sound && !P.paused) pStart(); }, ms || 600);
-  }
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) { if (P.playing) { pStop(); } } else { pSoon(500); }
-  });
-
   function answer(btn) {
     if (S.locked) return;
     var k = btn.getAttribute('data-k'), o = S.q.options.filter(function (x) { return x.k === k; })[0];
@@ -998,8 +924,8 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
     if (act === 'lang') {
       var v = el.getAttribute('data-v'); if (v === save.lang) return;
       save.lang = v; persist();
-      pStop(); P.idx = 0; if (S.screen === 'game' && S.game) startGame(S.game.id); else { render(); pSoon(); }
-    } else if (act === 'sound') { save.sound = !save.sound; persist(); if (save.sound) { P.paused = false; } else { pStop(); try { window.speechSynthesis.cancel(); } catch (e) {} } render(); if (save.sound) pSoon(300); }
+      if (S.screen === 'game' && S.game) startGame(S.game.id); else render();
+    } else if (act === 'sound') { save.sound = !save.sound; persist(); if (save.sound) { musicStart(); } else { musicStop(); try { window.speechSynthesis.cancel(); } catch (e) {} } render(); }
     else if (act === 'start') startGame(el.getAttribute('data-id'));
     else if (act === 'again') startGame(S.game.id);
     else if (act === 'next') startGame(GAMES[(GAMES.indexOf(S.game) + 1) % GAMES.length].id);
@@ -1009,12 +935,10 @@ button:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
     else if (act === 'card') flip(el);
     else if (act === 'bub') pop(el);
     else if (act === 'diya') lightDiya(el);
-    else if (act === 'ptoggle') { if (P.playing) { P.paused = true; pStop(); } else { P.paused = false; pStart(); } }
-    else if (act === 'pnext') { var was = P.playing; P.idx = (P.idx + 1) % POEMS[save.lang].length; if (was) pStart(); else { P.line = -1; poemUpdate(); } }
     else if (act === 'begin') {
       var nm = save.name.trim();
       if (!nm) { var nn = document.getElementById('nneed'), ni = document.getElementById('nm'); if (nn) nn.hidden = false; if (ni) ni.focus(); return; }
-      save.name = nm; persist(); S.screen = 'home'; render(); speak(t('helloN')(nm)); pSoon(3800);
+      save.name = nm; persist(); S.screen = 'home'; render(); musicStart(); speak(t('helloN')(nm));
     }
   });
 
